@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Texas Poker Trainer — static informational website with Russian and English language versions."
+  />
+  <title>Texas Poker Trainer — Language Selection</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- This local-only script reads browser language and redirects; it does not collect, store, or send data. -->
+  <script>
+    var language = navigator.language || navigator.userLanguage || "";
+    window.location.replace(language.toLowerCase().indexOf("ru") === 0 ? "./ru/" : "./en/");
+  </script>
+</head>
+<body class="language-page">
+  <main class="language-panel" aria-label="Language selection">
+    <p class="eyebrow">Texas Poker Trainer</p>
+    <h1>Выберите язык / Choose your language</h1>
+    <p>
+      Статический информационный сайт. Данные не собираются и не отправляются.<br />
+      Static informational website. No data is collected or sent.
+    </p>
+    <noscript>
+      <div class="language-actions">
+        <a class="secondary-button" href="./ru/">RU</a>
+        <a class="play-button" href="./en/">EN</a>
+      </div>
+    </noscript>
+  </main>
+</body>
+</html>
