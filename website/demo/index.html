@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta
     name="description"
-    content="Texas Poker Trainer — статическое образовательное демо для открытия в Telegram Mini App. 21+, только виртуальные фишки, без ставок реальными деньгами."
+    content="Texas Poker Trainer — статическое образовательное демо для Telegram Mini App. 21+, только виртуальные фишки, без ставок реальными деньгами."
   />
   <title>Texas Poker Trainer — демо для Telegram Mini App</title>
   <!-- Полностью статическое демо: без бэкенда, отслеживания, cookies, хранилищ и внешних скриптов. -->
@@ -13,58 +13,68 @@
 </head>
 <body>
   <main class="demo-shell" aria-live="polite">
-    <section class="intro-card" aria-labelledby="demo-title">
-      <p class="eyebrow">21+ • Образовательное демо • Только виртуальные фишки</p>
-      <h1 id="demo-title">Texas Poker Trainer</h1>
-      <p class="intro-text">
-        Тренируйте упрощённые решения в техасском покере против виртуального дилера,
-        не против реальных игроков. В демо используются только виртуальные фишки:
-        без ставок реальными деньгами и без денежных призов.
-      </p>
-      <div class="safety-grid" aria-label="Важные ограничения демо">
-        <span>21+</span>
-        <span>Образовательное демо</span>
-        <span>Только виртуальные фишки</span>
-        <span>Без ставок реальными деньгами</span>
-        <span>Без денежных призов</span>
-        <span>Игра против виртуального дилера, не против реальных игроков</span>
+    <header class="app-header" aria-labelledby="app-title">
+      <div class="brand-mark" aria-hidden="true">T</div>
+      <div class="brand-copy">
+        <h1 id="app-title">Texas Poker Trainer</h1>
+        <p>Демо тренировка</p>
       </div>
-    </section>
+      <span class="age-badge">21+</span>
+    </header>
 
     <section class="trainer-card" aria-labelledby="hand-title">
-      <div class="progress-row">
-        <span id="hand-progress">Раздача 1 из 5</span>
-        <span id="score-label">0 совпадений</span>
+      <div class="status-row" aria-label="Прогресс тренировки">
+        <span id="hand-progress" class="status-pill">Раздача 1 из 5</span>
+        <span id="score-label" class="status-pill status-pill--gold">0 совпадений</span>
       </div>
 
-      <div class="table-card">
-        <div class="dealer-badge">Виртуальный дилер</div>
-        <div class="community-area">
-          <p class="area-label">Общие карты</p>
-          <div id="community-cards" class="cards" aria-label="Общие карты"></div>
+      <div class="table-card" aria-label="Покерный стол">
+        <div class="dealer-seat">
+          <span class="dealer-chip" aria-hidden="true">D</span>
+          <span>Виртуальный дилер</span>
         </div>
+
+        <div class="community-area">
+          <p class="area-label">Флоп / общие карты</p>
+          <div id="community-cards" class="cards community-cards" aria-label="Общие карты"></div>
+        </div>
+
+        <div class="pot-panel" aria-label="Учебный банк">
+          <span>Учебный банк</span>
+          <strong>виртуальные фишки</strong>
+        </div>
+
         <div class="player-area">
-          <p class="area-label">Ваши карты</p>
+          <p class="area-label">Ваша рука</p>
           <div id="player-cards" class="cards player-cards" aria-label="Ваши карты"></div>
         </div>
       </div>
 
-      <div class="decision-panel">
-        <p id="hand-title" class="situation-title">Тренировочная раздача</p>
+      <article class="decision-panel" aria-labelledby="hand-title">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Текущая ситуация</p>
+            <h2 id="hand-title" class="situation-title">Тренировочная раздача</h2>
+          </div>
+          <span class="mode-chip">Без денег</span>
+        </div>
         <p id="situation-text" class="situation-text"></p>
-        <div id="choice-buttons" class="choice-buttons">
+
+        <div id="choice-buttons" class="choice-buttons" aria-label="Выберите тренировочное действие">
           <button type="button" class="primary-action" data-choice="Играть">Играть</button>
           <button type="button" class="secondary-action" data-choice="Пас">Пас</button>
         </div>
-        <div id="feedback" class="feedback" hidden></div>
+
+        <section id="feedback" class="feedback" hidden aria-label="Рекомендация тренажёра"></section>
         <button id="next-hand" type="button" class="next-button" hidden>Следующая раздача</button>
-      </div>
+      </article>
     </section>
 
     <section id="completion" class="completion-card" hidden aria-labelledby="completion-title">
-      <p class="eyebrow">Тренировочное демо завершено</p>
-      <h2 id="completion-title">Хорошая тренировка.</h2>
-      <p id="completion-score"></p>
+      <div class="completion-medal" aria-hidden="true">★</div>
+      <p class="panel-kicker">Тренировочное демо завершено</p>
+      <h2 id="completion-title">Сессия пройдена</h2>
+      <p id="completion-score" class="completion-score"></p>
       <p>
         Это упрощённое демо. Полный тренажёр доступен в Android-приложении.
       </p>
@@ -88,12 +98,12 @@
       </div>
     </section>
 
-    <footer class="demo-footer">
+    <aside class="safety-panel" aria-label="Ограничения демо">
       <p>
-        Статическое демо только для обучения. Без аккаунтов, платежей, серверной логики,
-        токена Telegram-бота и азартной игры на реальные деньги.
+        Упрощённое образовательное демо: только виртуальные фишки, без аккаунтов,
+        платежей, призов, ставок реальными деньгами и игры против реальных игроков.
       </p>
-    </footer>
+    </aside>
   </main>
 
   <script src="app.js"></script>
