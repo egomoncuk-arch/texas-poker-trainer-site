@@ -339,7 +339,7 @@ h3 {
 .policy-card,
 .disclaimer-section,
 .security-card,
-.screenshot-placeholder {
+.screenshot-card {
   border: 1px solid var(--line);
   background: rgba(9, 39, 27, 0.74);
   box-shadow: var(--shadow);
@@ -412,16 +412,24 @@ h3 {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.screenshot-placeholder {
+.screenshot-card {
   min-height: 460px;
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  border-style: dashed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
   border-radius: 30px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent),
     rgba(9, 39, 27, 0.62);
+}
+
+.screenshot-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .site-footer {
@@ -518,7 +526,7 @@ h3 {
     padding: 24px;
   }
 
-  .screenshot-placeholder {
+  .screenshot-card {
     min-height: 320px;
   }
 }
