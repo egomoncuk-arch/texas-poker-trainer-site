@@ -4,7 +4,7 @@ const hands = [
     communityCards: ["Q♠", "J♠", "4♦"],
     situation: "У вас две старшие карты, натсовое флеш-дро и дро на бродвей-стрит на флопе.",
     recommended: "Играть",
-    explanation: "Сильные дро с несколькими путями усиления — хороший тренировочный пример для продолжения против виртуального дилера.",
+    explanation: "Сильные дро с несколькими путями усиления — хороший учебный пример для продолжения против виртуального дилера.",
     value: "+72% тренировочной уверенности"
   },
   {
@@ -28,7 +28,7 @@ const hands = [
     communityCards: ["K♦", "8♦", "3♣"],
     situation: "У вас натсовое флеш-дро с одной старшей картой, но готовой пары пока нет.",
     recommended: "Играть",
-    explanation: "Натсовые флеш-дро подходят для продолжения в тренировке, когда урок сфокусирован на эквити дро.",
+    explanation: "Натсовое флеш-дро подходит для продолжения в тренировке, когда урок сфокусирован на эквити дро.",
     value: "+54% тренировочной уверенности"
   },
   {
@@ -61,15 +61,36 @@ function isRedCard(card) {
   return card.includes("♥") || card.includes("♦");
 }
 
+function splitCard(card) {
+  const suit = card.slice(-1);
+  const rank = card.slice(0, -1);
+
+  return { rank, suit };
+}
+
+function createCardElement(card) {
+  const { rank, suit } = splitCard(card);
+  const cardElement = document.createElement("span");
+  const rankElement = document.createElement("span");
+  const suitElement = document.createElement("span");
+  const cornerElement = document.createElement("span");
+
+  cardElement.className = `card${isRedCard(card) ? " red" : ""}`;
+  cardElement.setAttribute("aria-label", card);
+  rankElement.className = "card-rank";
+  rankElement.textContent = rank;
+  suitElement.className = "card-suit";
+  suitElement.textContent = suit;
+  cornerElement.className = "card-corner";
+  cornerElement.textContent = `${rank}${suit}`;
+
+  cardElement.append(rankElement, suitElement, cornerElement);
+
+  return cardElement;
+}
+
 function renderCards(container, cards) {
-  container.replaceChildren(
-    ...cards.map((card) => {
-      const cardElement = document.createElement("span");
-      cardElement.className = `card${isRedCard(card) ? " red" : ""}`;
-      cardElement.textContent = card;
-      return cardElement;
-    })
-  );
+  container.replaceChildren(...cards.map(createCardElement));
 }
 
 function getMatchLabel(count) {
@@ -84,12 +105,22 @@ function getMatchLabel(count) {
   return `${count} совпадений`;
 }
 
+function createFeedbackRow(label, value) {
+  const term = document.createElement("dt");
+  const definition = document.createElement("dd");
+
+  term.textContent = label;
+  definition.textContent = value;
+
+  return [term, definition];
+}
+
 function renderHand() {
   const hand = hands[currentHandIndex];
 
   progressLabel.textContent = `Раздача ${currentHandIndex + 1} из ${hands.length}`;
   scoreLabel.textContent = getMatchLabel(matchedChoices);
-  situationTitle.textContent = `Тренировочная раздача ${currentHandIndex + 1}`;
+  situationTitle.textContent = `Раздача ${currentHandIndex + 1}: решение на флопе`;
   situationText.textContent = hand.situation;
   renderCards(playerCards, hand.playerCards);
   renderCards(communityCards, hand.communityCards);
@@ -103,6 +134,12 @@ function renderHand() {
 function showFeedback(choice) {
   const hand = hands[currentHandIndex];
   const matched = choice === hand.recommended;
+  const title = document.createElement("h3");
+  const resultList = document.createElement("dl");
+  const explanation = document.createElement("p");
+  const value = document.createElement("p");
+  const valueLabel = document.createTextNode("EV/оценка: ");
+  const valueStrong = document.createElement("strong");
 
   if (matched) {
     matchedChoices += 1;
@@ -111,13 +148,19 @@ function showFeedback(choice) {
   scoreLabel.textContent = getMatchLabel(matchedChoices);
   choiceButtons.hidden = true;
   feedback.hidden = false;
-  feedback.innerHTML = `
-    <h3 class="${matched ? "matched" : "missed"}">${matched ? "Совпадает с рекомендацией" : "Разберите эту ситуацию"}</h3>
-    <p>Ваш выбор: <strong>${choice}</strong></p>
-    <p>Рекомендованное решение: <strong>${hand.recommended}</strong></p>
-    <p>${hand.explanation}</p>
-    <p>EV/результат тренировки: <strong>${hand.value}</strong></p>
-  `;
+  feedback.replaceChildren();
+
+  title.className = matched ? "matched" : "missed";
+  title.textContent = matched ? "Верно: совпадает с рекомендацией" : "Разбор: лучше выбрать иначе";
+  resultList.append(
+    ...createFeedbackRow("Ваш ход", choice),
+    ...createFeedbackRow("Тренажёр", hand.recommended)
+  );
+  explanation.textContent = hand.explanation;
+  valueStrong.textContent = hand.value;
+  value.append(valueLabel, valueStrong);
+
+  feedback.append(title, resultList, explanation, value);
   nextButton.textContent = currentHandIndex === hands.length - 1 ? "Завершить демо" : "Следующая раздача";
   nextButton.hidden = false;
 }
