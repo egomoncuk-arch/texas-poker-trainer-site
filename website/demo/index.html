@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta
+    name="description"
+    content="Texas Poker Trainer — статическое образовательное демо для открытия в Telegram Mini App. 21+, только виртуальные фишки, без ставок реальными деньгами."
+  />
+  <title>Texas Poker Trainer — демо для Telegram Mini App</title>
+  <!-- Полностью статическое демо: без бэкенда, отслеживания, cookies, хранилищ и внешних скриптов. -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="demo-shell" aria-live="polite">
+    <section class="intro-card" aria-labelledby="demo-title">
+      <p class="eyebrow">21+ • Образовательное демо • Только виртуальные фишки</p>
+      <h1 id="demo-title">Texas Poker Trainer</h1>
+      <p class="intro-text">
+        Тренируйте упрощённые решения в техасском покере против виртуального дилера,
+        не против реальных игроков. В демо используются только виртуальные фишки:
+        без ставок реальными деньгами и без денежных призов.
+      </p>
+      <div class="safety-grid" aria-label="Важные ограничения демо">
+        <span>21+</span>
+        <span>Образовательное демо</span>
+        <span>Только виртуальные фишки</span>
+        <span>Без ставок реальными деньгами</span>
+        <span>Без денежных призов</span>
+        <span>Игра против виртуального дилера, не против реальных игроков</span>
+      </div>
+    </section>
+
+    <section class="trainer-card" aria-labelledby="hand-title">
+      <div class="progress-row">
+        <span id="hand-progress">Раздача 1 из 5</span>
+        <span id="score-label">0 совпадений</span>
+      </div>
+
+      <div class="table-card">
+        <div class="dealer-badge">Виртуальный дилер</div>
+        <div class="community-area">
+          <p class="area-label">Общие карты</p>
+          <div id="community-cards" class="cards" aria-label="Общие карты"></div>
+        </div>
+        <div class="player-area">
+          <p class="area-label">Ваши карты</p>
+          <div id="player-cards" class="cards player-cards" aria-label="Ваши карты"></div>
+        </div>
+      </div>
+
+      <div class="decision-panel">
+        <p id="hand-title" class="situation-title">Тренировочная раздача</p>
+        <p id="situation-text" class="situation-text"></p>
+        <div id="choice-buttons" class="choice-buttons">
+          <button type="button" class="primary-action" data-choice="Играть">Играть</button>
+          <button type="button" class="secondary-action" data-choice="Пас">Пас</button>
+        </div>
+        <div id="feedback" class="feedback" hidden></div>
+        <button id="next-hand" type="button" class="next-button" hidden>Следующая раздача</button>
+      </div>
+    </section>
+
+    <section id="completion" class="completion-card" hidden aria-labelledby="completion-title">
+      <p class="eyebrow">Тренировочное демо завершено</p>
+      <h2 id="completion-title">Хорошая тренировка.</h2>
+      <p id="completion-score"></p>
+      <p>
+        Это упрощённое демо. Полный тренажёр доступен в Android-приложении.
+      </p>
+      <div class="completion-actions">
+        <a
+          class="store-button"
+          href="https://play.google.com/store/apps/details?id=com.koshaapps.texaspokertrainer2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Скачать в Google Play
+        </a>
+        <a
+          class="site-button"
+          href="https://egomoncuk-arch.github.io/texas-poker-trainer-site/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Открыть официальный сайт
+        </a>
+      </div>
+    </section>
+
+    <footer class="demo-footer">
+      <p>
+        Статическое демо только для обучения. Без аккаунтов, платежей, серверной логики,
+        токена Telegram-бота и азартной игры на реальные деньги.
+      </p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
